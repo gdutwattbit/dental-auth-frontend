@@ -6,12 +6,10 @@ import { message } from 'antd';
 // 创建axios实例
 const createAxiosInstance = (): AxiosInstance => {
   const instance = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000',
     timeout: 10000, // 10秒超时
     headers: {
       'Content-Type': 'application/json',
-    },
-    withCredentials: true, // 允许跨域携带cookie
+    }
   });
 
   // 请求拦截器
@@ -41,13 +39,8 @@ const createAxiosInstance = (): AxiosInstance => {
       // 隐藏加载状态
       // store.dispatch(setLoading(false));
       
-      // 处理成功的响应
-      if (response.data && response.data.message) {
-        // 可选：显示成功消息
-        // message.success(response.data.message);
-      }
-      
-      return response.data;
+      // 处理成功的响应 - 直接返回响应体
+      return response;
     },
     async (error: AxiosError) => {
       // 隐藏加载状态
@@ -65,7 +58,7 @@ const createAxiosInstance = (): AxiosInstance => {
           
           if (refreshToken) {
             const { data } = await axios.post(
-              `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'}/auth/refresh`,
+              `/auth/refresh`,
               { refreshToken },
               { withCredentials: true }
             );

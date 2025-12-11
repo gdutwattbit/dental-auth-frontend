@@ -4,9 +4,9 @@ import type {
   LoginCredentials,
   RegisterData,
   AuthResponse,
-  User,
-  ApiResponse
+  User
 } from '../types/user';
+import type { ApiResponse } from '../types/api';
 
 export const authApi = {
   /**
